@@ -6,13 +6,31 @@
 
 ### Use  SHARI Principle to define what goes into the store
 
-### Do not put related nested data
+The NgRx core team has come up with a principle called **SHARI**, that can be used as a rule of thumb on data that needs to be added to the store.
 
-### Use atomic state for UI state
+* **Shared**: State that is shared between many components and services
+* **Hydrated**: State that needs to be persisted and hydrated across page reloads
+* **Available**: State that needs to be available when re-entering routes
+* **Retrieved**: State that needs to be retrieved with a side effect, e.g. an HTTP request
+* **Impacted**: State that is impacted by other components [https://ngrx.io/guide/store/why\#when-should-i-use-ngrx-store-for-state-management](https://ngrx.io/guide/store/why#when-should-i-use-ngrx-store-for-state-management)
+
+{% hint style="info" %}
+Having store in an application doesnt mean that every component should use it. Always evaluate what state should be in the store.
+{% endhint %}
+
+### Use  ComponentStore or services for local state
+
+Global Store better suited for managing global shared state, where ComponentStore shines managing more local, encapsulated state, as well as component UI state.  
+  
+[https://ngrx.io/guide/component-store/comparison\#benefits-and-trade-offs](https://ngrx.io/guide/component-store/comparison#benefits-and-trade-offs)
+
+### Do not put related nested data
 
 ### Do not put view models into the store
 
-### Use service with a subject or component-store for component state
+Prefer the use of atomic state
+
+### 
 
 ## Actions
 
@@ -61,6 +79,20 @@ This helps with refactoring when the state changes it is easier to modify the hi
 ## Component Store
 
 ### Use it to handle local component state
+
+## References
+
+{% embed url="https://www.youtube.com/watch?v=LUGu1xQinU8" %}
+
+{% embed url="https://twitter.com/gdoutriaux/status/1279317072686743554" %}
+
+
+
+Twitter
+
+{% embed url="https://twitter.com/gdoutriaux" %}
+
+
 
 
 
