@@ -2,7 +2,10 @@
 
 ## Foundation
 
-### Use containers and presentational components
+### Prefer the separation of components into containers and presentational components
+
+The separation of components into presentational and containers helps make the application easy to reuse, understand, and refactor. It is hard to reuse the presentational component that has dependencies on state management or services.  
+[https://ngrx.io/guide/schematics/container](https://ngrx.io/guide/schematics/container)
 
 ### Use  SHARI Principle to define what goes into the store
 
@@ -28,7 +31,33 @@ Global Store better suited for managing global shared state, where ComponentStor
 
 ### Do not put view models into the store
 
-Prefer the use of atomic state
+It is wrong to keep flatten view models directly in the store because it hard to shared the same view model in different component that might not have the same view model. 
+
+{% hint style="success" %}
+It is preferable to keep original API data to hydrate multiple components. Use @ngrx/entity  for server requests and selectors to manipulated data for a component.
+{% endhint %}
+
+{% hint style="danger" %}
+If the data in the store is only shared by a single view, it should not be in the store.
+{% endhint %}
+
+### Prefer the use of atomic state
+
+The idea is that sometimes **multiple state variables are related**, but no one of them is derivable from any other one. People expend a lot of effort trying to keep these variables in sync with each other, and often have bugs when they don't succeed.
+
+A classic example is when working with forms, people might track whether the form is: `dirty`, `valid` `submitting`, `submitted`,`canceled`, `rejected`, etc.
+
+These states are not necessarily derivable from each other, but often change in concert with each other = they are not atomic.
+
+In such circumstances, this might point to the presence of another variable that IS atomic, from which our data can be derived, and reduces the complexity of our store.
+
+In this case, we can look to a state machine. More information on state machines here:
+
+[https://css-tricks.com/robust-react-user-interfaces-with-finite-state-machines/](https://css-tricks.com/robust-react-user-interfaces-with-finite-state-machines/)
+
+So in our form example, we could store the state of our form state machine in our `state` and update that in our reducers.
+
+Then, we **use selectors to get back all the variables** we needed before based on the single state machine state variable.
 
 ### 
 
@@ -40,11 +69,25 @@ This helps to think in terms of events and not in terms of things that you want 
 
 ### Create actions based on events no commands
 
+ Capture _events_ **not** _commands_ as you are separating the description of an event and the handling of that event.  
+[https://ngrx.io/guide/store/actions\#writing-actions](https://ngrx.io/guide/store/actions#writing-actions)
+
 ### Categorize actions based on the event source
+
+The actions should be categorized by event source. Having a file for each source can also help to locate them. 
+
+[https://ngrx.io/guide/store/actions\#writing-actions](https://ngrx.io/guide/store/actions#writing-actions)
 
 ### Do not create actions that just modify part of the state \(this is a command\)
 
+Actions should not be used as commands and should be event driven.   
+&lt;CODE&gt;
+
 ### Use the three action approach\(request, success, failure\) for the server requests 
+
+When having actions for server requests is good to always cover the three types of events that can happen: request, success and failure.
+
+&lt;CODE&gt;
 
 ### Use a naming format
 
@@ -84,13 +127,19 @@ This helps with refactoring when the state changes it is easier to modify the hi
 
 {% embed url="https://www.youtube.com/watch?v=LUGu1xQinU8" %}
 
+{% embed url="https://www.youtube.com/watch?v=JmnsEvoy-gY&feature=youtu.be" %}
+
+
+
 {% embed url="https://twitter.com/gdoutriaux/status/1279317072686743554" %}
 
 
 
-Twitter
-
-{% embed url="https://twitter.com/gdoutriaux" %}
+Twitter  
+[https://twitter.com/gdoutriaux](https://twitter.com/gdoutriaux)  
+[https://twitter.com/KateSky8](https://twitter.com/KateSky8)  
+[https://twitter.com/AlexOkrushko](https://twitter.com/AlexOkrushko)  
+[https://twitter.com/brandontroberts](https://twitter.com/brandontroberts)
 
 
 
