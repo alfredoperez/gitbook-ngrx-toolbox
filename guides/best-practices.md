@@ -1,6 +1,6 @@
 # Best Practices / Guidelines
 
-## Foundation
+## Bedrock
 
 ### Prefer the separation of components into containers and presentational components
 
@@ -135,7 +135,8 @@ This helps with refactoring when the state changes it is easier to modify the hi
 
 
 
-Twitter  
+### Twitter accounts to follow
+
 [https://twitter.com/gdoutriaux](https://twitter.com/gdoutriaux)  
 [https://twitter.com/KateSky8](https://twitter.com/KateSky8)  
 [https://twitter.com/AlexOkrushko](https://twitter.com/AlexOkrushko)  
