@@ -38,6 +38,29 @@ it can be reused by multiple components and view models should be constructed us
 
 ### Services with a subject
 
+### Avoid state Duplication
+
+#### Direct Entity Duplication
+
+![](../.gitbook/assets/image%20%2817%29.png)
+
+In the code above the state is duplicated in the selected client, instead of using this, you can save the identifier  
+
+
+![](../.gitbook/assets/image%20%2819%29.png)
+
+#### Implicit State Duplication
+
+![](../.gitbook/assets/image%20%2818%29.png)
+
+Instead of saving this, create a selector 
+
+### Avoid Franken State
+
+![](../.gitbook/assets/image%20%2816%29.png)
+
+
+
 ### Avoid related/Nested data
 
 ![](../.gitbook/assets/image%20%285%29.png)
