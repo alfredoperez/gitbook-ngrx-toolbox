@@ -104,6 +104,41 @@ _**References**_
 * [https://css-tricks.com/robust-react-user-interfaces-with-finite-state-machines/](https://css-tricks.com/robust-react-user-interfaces-with-finite-state-machines/)
 * [https://twitter.com/VojtechMasek/status/1278665431910408201](https://twitter.com/VojtechMasek/status/1278665431910408201)
 
+### Avoid state Duplication
+
+#### Direct Entity Duplication
+
+![](../.gitbook/assets/image%20%2817%29.png)
+
+In the code above the state is duplicated in the selected client, instead of using this, you can save the identifier  
+
+
+![](../.gitbook/assets/image%20%2819%29.png)
+
+#### Implicit State Duplication
+
+![](../.gitbook/assets/image%20%2818%29.png)
+
+Instead of saving this, create a selector 
+
+#### References
+
+State management anti-patterns, Presented by: Lara Newsom
+
+### Avoid Franken State
+
+![](../.gitbook/assets/image%20%2816%29.png)
+
+### Be careful of how you handle subscriptions
+
+prefer the use of async instead of trying to unsubscribe
+
+#### Do not save observable values into properties
+
+![](../.gitbook/assets/image%20%2821%29.png)
+
+![](../.gitbook/assets/image%20%2826%29.png)
+
 ## Actions
 
 ### Use Event Storming as a tool to figure it out the events and actions
@@ -157,6 +192,16 @@ It is easier to refactor, because of the Single-Responsibility-Principle if mult
 _**References:**_
 
 * [https://ngrx.io/guide/store/actions\#writing-actions](https://ngrx.io/guide/store/actions#writing-actions)
+
+### _**Do not Share actions**_
+
+![](../.gitbook/assets/image%20%2829%29.png)
+
+![](../.gitbook/assets/image%20%2825%29.png)
+
+![](../.gitbook/assets/image%20%2828%29.png)
+
+![](../.gitbook/assets/image%20%2820%29.png)
 
 ### _**Agree on a naming convention**_
 
@@ -242,6 +287,16 @@ Selectors can be used to create view models
 
 This helps with refactoring when the state changes it is easier to modify the higher selector
 
+### _**Avoid too broad electors**_
+
+everything will be re render when something changes, use composed selectors instead. Another issue is that with this broad selectors the components are aware of the shape of the data. Instead create selectors that return small discrete units of data
+
+![](../.gitbook/assets/image%20%2830%29.png)
+
+![](../.gitbook/assets/image%20%2822%29.png)
+
+![](../.gitbook/assets/image%20%2827%29.png)
+
 ### Prefer to initialize selectors in the constructor
 
 This will help if you care about AOT or enable the TypeScript's strict mode 
@@ -264,6 +319,18 @@ References:
 ### Avoid dispatching multiple actions from an effect
 
 ### Use stateless effects
+
+### Avoid Monolithic Effects
+
+this effects are hard to test. Instead dispatch an action that the effect only does a unit of work and from there it keeps going until everything is done.
+
+![](../.gitbook/assets/image%20%2824%29.png)
+
+![](../.gitbook/assets/image%20%2823%29.png)
+
+#### References
+
+#### [https://www.sourceallies.com/2020/11/state-management-anti-patterns](https://www.sourceallies.com/2020/11/state-management-anti-patterns)
 
 ## Entity
 
