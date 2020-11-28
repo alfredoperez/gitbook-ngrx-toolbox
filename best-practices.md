@@ -108,16 +108,16 @@ _**References**_
 
 #### Direct Entity Duplication
 
-![](../.gitbook/assets/image%20%2817%29.png)
+![](.gitbook/assets/image%20%2817%29.png)
 
 In the code above the state is duplicated in the selected client, instead of using this, you can save the identifier  
 
 
-![](../.gitbook/assets/image%20%2819%29.png)
+![](.gitbook/assets/image%20%2819%29.png)
 
 #### Implicit State Duplication
 
-![](../.gitbook/assets/image%20%2818%29.png)
+![](.gitbook/assets/image%20%2818%29.png)
 
 Instead of saving this, create a selector 
 
@@ -127,7 +127,7 @@ State management anti-patterns, Presented by: Lara Newsom
 
 ### Avoid Franken State
 
-![](../.gitbook/assets/image%20%2816%29.png)
+![](.gitbook/assets/image%20%2816%29.png)
 
 ### Be careful of how you handle subscriptions
 
@@ -135,9 +135,9 @@ prefer the use of async instead of trying to unsubscribe
 
 #### Do not save observable values into properties
 
-![](../.gitbook/assets/image%20%2821%29.png)
+![](.gitbook/assets/image%20%2821%29.png)
 
-![](../.gitbook/assets/image%20%2826%29.png)
+![](.gitbook/assets/image%20%2826%29.png)
 
 ## Actions
 
@@ -145,7 +145,7 @@ prefer the use of async instead of trying to unsubscribe
 
 This helps to think in terms of events and not in terms of things that you want to happens as a response when an event happens. This also helps the team to get better at using ngrx, because this is done as a group exercise. This can help to have one developer buld UI and selectors while  other builds the effect and reducers.
 
-![](../.gitbook/assets/image%20%289%29.png)
+![](.gitbook/assets/image%20%289%29.png)
 
 _**References**_:  
  [https://dev.to/alfredoperez/my-notes-from-ngrx-workshop-from-ngconf-2020-part-2-actions-1ilh](https://dev.to/alfredoperez/my-notes-from-ngrx-workshop-from-ngconf-2020-part-2-actions-1ilh)
@@ -187,7 +187,7 @@ This makes easier to **debug**, and the specific names makes it **easy to back t
 It is easier to refactor, because of the Single-Responsibility-Principle if multiple components use the same action, it is harder to abstract.  
 
 
-![](../.gitbook/assets/image%20%2810%29.png)
+![](.gitbook/assets/image%20%2810%29.png)
 
 _**References:**_
 
@@ -195,13 +195,13 @@ _**References:**_
 
 ### _**Do not Share actions**_
 
-![](../.gitbook/assets/image%20%2829%29.png)
+![](.gitbook/assets/image%20%2829%29.png)
 
-![](../.gitbook/assets/image%20%2825%29.png)
+![](.gitbook/assets/image%20%2825%29.png)
 
-![](../.gitbook/assets/image%20%2828%29.png)
+![](.gitbook/assets/image%20%2828%29.png)
 
-![](../.gitbook/assets/image%20%2820%29.png)
+![](.gitbook/assets/image%20%2820%29.png)
 
 ### _**Agree on a naming convention**_
 
@@ -277,7 +277,7 @@ Reducers are boring keep them that way
 
 To keep the store state in a usable format for multiple selectors and components.
 
-![](../.gitbook/assets/image%20%2814%29.png)
+![](.gitbook/assets/image%20%2814%29.png)
 
 {% hint style="info" %}
 Selectors can be used to create view models
@@ -291,11 +291,11 @@ This helps with refactoring when the state changes it is easier to modify the hi
 
 everything will be re render when something changes, use composed selectors instead. Another issue is that with this broad selectors the components are aware of the shape of the data. Instead create selectors that return small discrete units of data
 
-![](../.gitbook/assets/image%20%2830%29.png)
+![](.gitbook/assets/image%20%2830%29.png)
 
-![](../.gitbook/assets/image%20%2822%29.png)
+![](.gitbook/assets/image%20%2822%29.png)
 
-![](../.gitbook/assets/image%20%2827%29.png)
+![](.gitbook/assets/image%20%2827%29.png)
 
 ### Prefer to initialize selectors in the constructor
 
@@ -303,11 +303,11 @@ This will help if you care about AOT or enable the TypeScript's strict mode
 
 ### Compose selectors to benefit from memoization
 
-![](../.gitbook/assets/image%20%2813%29.png)
+![](.gitbook/assets/image%20%2813%29.png)
 
 ### Create custom RxJs Operators
 
-![](../.gitbook/assets/image%20%2812%29.png)
+![](.gitbook/assets/image%20%2812%29.png)
 
 References:
 
@@ -324,9 +324,9 @@ References:
 
 this effects are hard to test. Instead dispatch an action that the effect only does a unit of work and from there it keeps going until everything is done.
 
-![](../.gitbook/assets/image%20%2824%29.png)
+![](.gitbook/assets/image%20%2824%29.png)
 
-![](../.gitbook/assets/image%20%2823%29.png)
+![](.gitbook/assets/image%20%2823%29.png)
 
 #### References
 
