@@ -16,4 +16,5 @@
 ---
 
 * [Best Practices / Guidelines](best-practices.md)
+* [Behavior-driven atomic state using ngrx](behavior-driven-atomic-state-using-ngrx.md)
 
