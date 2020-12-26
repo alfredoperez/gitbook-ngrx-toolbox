@@ -49,13 +49,24 @@ In the code above the state is duplicated in the selected client, instead of usi
 
 ![](../.gitbook/assets/image%20%2819%29.png)
 
-#### Implicit State Duplication
+#### Avoid Implicit State Duplication
 
-![](../.gitbook/assets/image%20%2818%29.png)
+Prefer the use of selectors instead of duplicating state. 
 
-Instead of saving this, create a selector 
+The following is an example of how the state is duplicated by saving the total number of clients
+
+```typescript
+interface State {
+    clients: {[key:number]: Client};
+    totalClients: number;
+}
+```
+
+
 
 ### Avoid Franken State
+
+{{TBD}}
 
 ![](../.gitbook/assets/image%20%2816%29.png)
 
@@ -63,24 +74,22 @@ Instead of saving this, create a selector
 
 ### Avoid related/Nested data
 
-![](../.gitbook/assets/image%20%285%29.png)
+Avoid related nested data to not complicate reducer and keep the store easy to mutate.
 
-### Use service with a subject ...\(component-store\)
+### Prefer dictionaries versus arrays \(NgRx Entity\)
 
-![](../.gitbook/assets/image%20%288%29.png)
+Prefer the use of dictionaries \(NgRx Entity\) when having  a collection of data because it is more efficient.
 
-![](../.gitbook/assets/image%20%282%29.png)
+### Use service with a subject \(component-store\)
 
-![](../.gitbook/assets/image%20%284%29.png)
+Prefer the use of a service with a subject or  NgRx component store when the state doesn't satisfies the S.H.A.R.I. principle or is state that is only needed for a presentational component.
 
+When NOT to use Service with a Subject?
 
-
-## When NOT to use Service with a Subject?
-
-* **Application or feature is complex**
-* **Want to track state changes**
-* **Recreate user errors**
-* **Implement advanced logging**
+* Application or feature is complex
+* Want to track state changes
+* Recreate user errors
+* Implement advanced logging
 
 ## Actions
 
