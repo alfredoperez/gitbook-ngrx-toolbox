@@ -6,9 +6,11 @@
 
 ## Bedrock
 
-### Prefer the separation of components into containers and presentational components
+### Prefer separating the components into containers and presentational components
 
-The separation of components into presentational and containers helps make the application easy to reuse, understand, and refactor. It is hard to reuse the presentational component that has dependencies on state management or services.  
+The separation of components into presentational and containers helps make the application easy to reuse, understand, and refactor. 
+
+It is easier to refactor and and reuse the presentational components that do not depend on state management or services.  
   
 [https://ngrx.io/guide/schematics/container](https://ngrx.io/guide/schematics/container)  
 [https://www.youtube.com/watch?v=LUGu1xQinU8&feature=emb\_title](https://www.youtube.com/watch?v=LUGu1xQinU8&feature=emb_title)
@@ -24,7 +26,7 @@ The NgRx core team has come up with a principle called **SHARI**, that can be us
 * **Impacted**: State that is impacted by other components
 
 {% hint style="info" %}
-Having store in an application doesnt mean that every component should use it. Always evaluate what state should be in the store.
+Having store in an application doesn't mean that every component should use it. Always evaluate what state should be in the store.
 {% endhint %}
 
 [https://ngrx.io/guide/store/why\#when-should-i-use-ngrx-store-for-state-management](https://ngrx.io/guide/store/why#when-should-i-use-ngrx-store-for-state-management)
@@ -143,7 +145,7 @@ prefer the use of async instead of trying to unsubscribe
 
 ### Use Event Storming as a tool to figure it out the events and actions
 
-This helps to think in terms of events and not in terms of things that you want to happens as a response when an event happens. This also helps the team to get better at using ngrx, because this is done as a group exercise. This can help to have one developer buld UI and selectors while  other builds the effect and reducers.
+This helps to think in terms of events and not in terms of things that you want to happens as a response when an event happens. This also helps the team to get better at using ngrx, because this is done as a group exercise. This can help to have one developer come up with the  UI and selectors while  other builds the effect and reducers.
 
 ![](.gitbook/assets/image%20%289%29.png)
 
