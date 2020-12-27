@@ -1,23 +1,8 @@
 # Best Practices / Guidelines
 
-## TL;DR;
+### Use the SHARI Principle to define what goes into the store
 
-
-
-## Bedrock
-
-### Prefer separating the components into containers and presentational components
-
-The separation of components into presentational and containers helps make the application easy to reuse, understand, and refactor. 
-
-It is easier to refactor and and reuse the presentational components that do not depend on state management or services.  
-  
-[https://ngrx.io/guide/schematics/container](https://ngrx.io/guide/schematics/container)  
-[https://www.youtube.com/watch?v=LUGu1xQinU8&feature=emb\_title](https://www.youtube.com/watch?v=LUGu1xQinU8&feature=emb_title)
-
-### Use  SHARI Principle to define what goes into the store
-
-The NgRx core team has come up with a principle called **SHARI**, that can be used as a rule of thumb on data that needs to be added to the store.
+The NgRx core team has come up with a principle called [**SHARI**](https://ngrx.io/guide/store/why#when-should-i-use-ngrx-store-for-state-management), that can be used as a rule of thumb on data that needs to be added to the store.
 
 * **Shared**: State that is shared between many components and services
 * **Hydrated**: State that needs to be persisted and hydrated across page reloads
@@ -25,33 +10,15 @@ The NgRx core team has come up with a principle called **SHARI**, that can be us
 * **Retrieved**: State that needs to be retrieved with a side effect, e.g. an HTTP request
 * **Impacted**: State that is impacted by other components
 
-{% hint style="info" %}
-Having store in an application doesn't mean that every component should use it. Always evaluate what state should be in the store.
-{% endhint %}
+> Having store in an application doesn't mean that every component should use it. Always evaluate what state should be in the store.
 
-[https://ngrx.io/guide/store/why\#when-should-i-use-ngrx-store-for-state-management](https://ngrx.io/guide/store/why#when-should-i-use-ngrx-store-for-state-management)
+### Prefer using  Component Store or services with a behavior subject for local state
 
-### Use  ComponentStore or services for local state
+Global store better suited for managing global shared state, where [Component Store](https://ngrx.io/guide/component-store/comparison#benefits-and-trade-offs) shines managing more local, encapsulated state, as well as component UI state.
 
-Global store better suited for managing global shared state, where ComponentStore shines managing more local, encapsulated state, as well as component UI state.  
-  
-[https://ngrx.io/guide/component-store/comparison\#benefits-and-trade-offs](https://ngrx.io/guide/component-store/comparison#benefits-and-trade-offs)
+Instead of franken state
 
-### Do not put related nested data
-
-### Do not put view models into the store
-
-It is wrong to keep flatten view models directly in the store because it hard to shared the same view model in different component that might not have the same view model. 
-
-{% hint style="success" %}
-It is preferable to keep original API data to hydrate multiple components. Use @ngrx/entity  for server requests and selectors to manipulated data for a component.
-{% endhint %}
-
-{% hint style="danger" %}
-If the data in the store is only shared by a single view, it should not be in the store.
-{% endhint %}
-
-### Prefer the use of atomic state to represent the component or request state
+### Prefer using atomic state
 
 The idea is that sometimes **multiple state variables are related**, but no one of them is derivable from any other one. People expend a lot of effort trying to keep these variables in sync with each other, and often have bugs when they don't succeed.
 
@@ -59,8 +26,7 @@ A classic example is when working with forms, people might track whether the for
 
 These states are not necessarily derivable from each other, but often change in concert with each other = they are not atomic.
 
-In such circumstances, this might point to the presence of another variable that IS atomic, from which our data can be derived, and reduces the complexity of our store  
-
+In such circumstances, this might point to the presence of another variable that IS atomic, from which our data can be derived, and reduces the complexity of our store
 
 ```typescript
 export const enum LoadingState {
@@ -106,55 +72,32 @@ _**References**_
 * [https://css-tricks.com/robust-react-user-interfaces-with-finite-state-machines/](https://css-tricks.com/robust-react-user-interfaces-with-finite-state-machines/)
 * [https://twitter.com/VojtechMasek/status/1278665431910408201](https://twitter.com/VojtechMasek/status/1278665431910408201)
 
-### Avoid state Duplication
+### Prefer the use of containers and presentational components
 
-#### Direct Entity Duplication
+The separation of components into presentational and [containers](https://ngrx.io/guide/schematics/container) helps make the application easy to reuse, understand, and refactor. 
 
-![](.gitbook/assets/image%20%2817%29.png)
-
-In the code above the state is duplicated in the selected client, instead of using this, you can save the identifier  
-
-
-![](.gitbook/assets/image%20%2819%29.png)
-
-#### Implicit State Duplication
-
-![](.gitbook/assets/image%20%2818%29.png)
-
-Instead of saving this, create a selector 
-
-#### References
-
-State management anti-patterns, Presented by: Lara Newsom
-
-### Avoid Franken State
-
-![](.gitbook/assets/image%20%2816%29.png)
-
-### Be careful of how you handle subscriptions
-
-prefer the use of async instead of trying to unsubscribe
-
-#### Do not save observable values into properties
-
-![](.gitbook/assets/image%20%2821%29.png)
-
-![](.gitbook/assets/image%20%2826%29.png)
+It is easier to refactor and and reuse the [presentational components](https://www.youtube.com/watch?v=LUGu1xQinU8) that do not depend on state management or services.
 
 ## Actions
 
-### Use Event Storming as a tool to figure it out the events and actions
+### Prefer categorizing actions based on the event source
 
-This helps to think in terms of events and not in terms of things that you want to happens as a response when an event happens. This also helps the team to get better at using ngrx, because this is done as a group exercise. This can help to have one developer come up with the  UI and selectors while  other builds the effect and reducers.
+The actions should be categorized by the event source. Having a file for each source can also help to locate them. 
 
-![](.gitbook/assets/image%20%289%29.png)
+This makes easier to **debug**, and the specific names makes it **easy to back track.**  
+  
+It is easier to refactor, because of the Single-Responsibility-Principle if multiple components use the same action, it is harder to abstract.  
 
-_**References**_:  
- [https://dev.to/alfredoperez/my-notes-from-ngrx-workshop-from-ngconf-2020-part-2-actions-1ilh](https://dev.to/alfredoperez/my-notes-from-ngrx-workshop-from-ngconf-2020-part-2-actions-1ilh)
 
-### Create actions based on events no commands
+![](.gitbook/assets/image%20%2810%29.png)
 
- Capture _events_ **not** _commands_ as you are separating the description of an event and the handling of that event.
+### Avoid creating actions that modify multiple parts of the state
+
+> This is about creating actions that are actually commands and modify multiple parts of the state
+
+### Avoid creating actions based on commands
+
+Actions should [capture _events_ ](https://ngrx.io/guide/store/actions#writing-actions)**not** _commands_ as you are separating the description of an event and the handling of that event.
 
 ```typescript
 function submitFormCommands({todo}){
@@ -168,44 +111,9 @@ function submitFormEvents({todo}){
 }
 ```
 
-{% hint style="danger" %}
 Do not create actions that just modify part of the state, since that is the equivalent to a command
-{% endhint %}
 
-{% hint style="danger" %}
-Do not reuse actions
-{% endhint %}
-
-References:  
-[https://ngrx.io/guide/store/actions\#writing-actions](https://ngrx.io/guide/store/actions#writing-actions)  
-[https://labs.thisdot.co/resources/AdvancedNgRx](https://labs.thisdot.co/resources/AdvancedNgRx)
-
-### Categorize actions based on the event source
-
-The actions should be categorized by the event source. Having a file for each source can also help to locate them. 
-
-This makes easier to **debug**, and the specific names makes it **easy to back track.**  
-  
-It is easier to refactor, because of the Single-Responsibility-Principle if multiple components use the same action, it is harder to abstract.  
-
-
-![](.gitbook/assets/image%20%2810%29.png)
-
-_**References:**_
-
-* [https://ngrx.io/guide/store/actions\#writing-actions](https://ngrx.io/guide/store/actions#writing-actions)
-
-### _**Do not Share actions**_
-
-![](.gitbook/assets/image%20%2829%29.png)
-
-![](.gitbook/assets/image%20%2825%29.png)
-
-![](.gitbook/assets/image%20%2828%29.png)
-
-![](.gitbook/assets/image%20%2820%29.png)
-
-### _**Agree on a naming convention**_
+### Prefer the use of a naming convention 
 
 Decide on a naming convention and stick with it. 
 
@@ -245,7 +153,25 @@ Here is an example of a naming convention:
   );
   ```
 
-### Use success and failure actions for the server requests 
+### _**Avoid sharing actions**_
+
+![](.gitbook/assets/image%20%2829%29.png)
+
+![](.gitbook/assets/image%20%2825%29.png)
+
+![](.gitbook/assets/image%20%2828%29.png)
+
+![](.gitbook/assets/image%20%2820%29.png)
+
+### Prefer using Event Storming
+
+[Event Storming](https://dev.to/alfredoperez/my-notes-from-ngrx-workshop-from-ngconf-2020-part-2-actions-1ilh) helps to think in terms of events and not in terms of things that you want to happens as a response when an event happens. This also helps the team to get better at using ngrx, because this is done as a group exercise. This can help to have one developer come up with the  UI and selectors while  other builds the effect and reducers.
+
+![](.gitbook/assets/image%20%289%29.png)
+
+### 
+
+### Prefer using standardize actions for API requests 
 
 ```typescript
 export const searchSuccess = createAction(
@@ -264,14 +190,86 @@ export const searchFailure = createAction(
 );
 ```
 
+
+
 ## Reducers
 
-Reducers are boring keep them that way
+### Avoid implicit state duplication
 
-  
-**References**:
+#### 
 
-* [https://twitter.com/brandontroberts/status/1253144569606295552](https://twitter.com/brandontroberts/status/1253144569606295552)
+![](.gitbook/assets/image%20%2817%29.png)
+
+In the code above the state is duplicated in the selected client, instead of using this, you can save the identifier  
+
+
+![](.gitbook/assets/image%20%2819%29.png)
+
+#### Implicit State Duplication
+
+![](.gitbook/assets/image%20%2818%29.png)
+
+Instead of saving this, create a selector 
+
+### Avoid storing transformed data
+
+It is wrong to keep flatten view models directly in the store because it hard to shared the same view model in different component that might not have the same view model. 
+
+{% hint style="success" %}
+It is preferable to keep original API data to hydrate multiple components. Use @ngrx/entity  for server requests and selectors to manipulated data for a component.
+{% endhint %}
+
+{% hint style="danger" %}
+If the data in the store is only shared by a single view, it should not be in the store.\
+{% endhint %}
+
+### Avoid related nested data
+
+### Prefer dictionaries \(ngrx entity\) versus arrays
+
+
+
+## Selectors
+
+### Prefer the use selectors to filter and manipulate data from the store
+
+### Avoid to broad selectors by using composed selectors 
+
+### Avoid saving selectors values into components properties 
+
+### Prefer initializing selectors in the constructor 
+
+### Prefer using custom RxJs operators
+
+## Effects 
+
+### Avoid dispatching multiple actions from an effect \(or component method\) 
+
+### Avoid monolithic effects 
+
+### Prefer the use of stateless effects
+
+## References
+
+{% embed url="https://www.sourceallies.com/2020/11/state-management-anti-patterns/" %}
+
+
+
+## 
+
+## WIP
+
+### Be careful of how you handle subscriptions
+
+prefer the use of async instead of trying to unsubscribe
+
+#### Do not save observable values into properties
+
+![](.gitbook/assets/image%20%2821%29.png)
+
+![](.gitbook/assets/image%20%2826%29.png)
+
+## 
 
 ## Selectors
 
@@ -334,15 +332,15 @@ this effects are hard to test. Instead dispatch an action that the effect only d
 
 #### [https://www.sourceallies.com/2020/11/state-management-anti-patterns](https://www.sourceallies.com/2020/11/state-management-anti-patterns)
 
-## Entity
 
-## Component Store
-
-### Use it to handle local component state
-
-### Use it with @ngrx/entity
 
 ## References
+
+{% embed url="https://labs.thisdot.co/resources/AdvancedNgRx" %}
+
+{% embed url="https://www.sourceallies.com/2020/11/state-management-anti-patterns/" %}
+
+
 
 
 

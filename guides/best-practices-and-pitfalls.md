@@ -281,21 +281,5 @@ export class FindBookPageComponent {
 
 If using the strict mode in TypeScript, the compiler will not be able to know that the selectors were initialized on `ngOnInit`
 
-## Effects
-
-### Avoid effect dominoes
-
-### Stateless Effects
-
-
-
-## NgRx Entity
-
-
-
-
-
-## Component-store
-
 
 
