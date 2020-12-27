@@ -113,6 +113,13 @@ function submitFormEvents({todo}){
 
 Do not create actions that just modify part of the state, since that is the equivalent to a command
 
+```typescript
+export const setIsLoading = createAction(
+      '[Books Page] Set is loading',
+      props<{isLoading: boolean}>()
+);
+```
+
 ### Prefer the use of a naming convention 
 
 Decide on a naming convention and stick with it. 
@@ -155,19 +162,77 @@ Here is an example of a naming convention:
 
 ### _**Avoid sharing actions**_
 
-![](.gitbook/assets/image%20%2829%29.png)
+This builds on the previous guidelines about categorizing actions based on events sources and making sure that the actions are events and not commands.
 
-![](.gitbook/assets/image%20%2825%29.png)
+If we part from this, it should be clear that you should not be able to re-use actions since each event source \(component, effect, or service\) are different. 
 
-![](.gitbook/assets/image%20%2828%29.png)
+ The following example shows a wrong action that doesnt have a specifict event source, represents a command and it is reused in multiple components:
 
-![](.gitbook/assets/image%20%2820%29.png)
+```typescript
+// Wrong action used in the Home, Client and Product Component
+export const loadUser = createAction(
+  '[User Data] Load user'
+);
+```
+
+Instead you should create an action per event source and it should represent the event:
+
+```typescript
+export const enterHomePage  = createAction(
+  '[Home Page] Enter'
+);
+
+export const enterClientPage  = createAction(
+  '[Cient Page] Enter'
+);
+
+export const enterProductPage  = createAction(
+  '[Product Page] Enter'
+);
+```
+
+Having multiple actions does not mean that you will need to create separate reducers and effects if they happen to do the same thing, but by using good action hygiene  you will gain better traceability and debugabbility
+
+```typescript
+// Example of a reducer that is used for three actions that save the user
+const userReducer = createReducer(
+ initialState,
+ on(enterHomePage,
+    enterClientPage,
+    enterProductPage,
+    (state, action) => ({ ...state,user: action.user}))
+);
+
+// Example of an effect that listens to multiple actions
+export class MovieEffects {
+
+loadMovies$ = createEffect(() =>
+   this.actions$.pipe(
+      ofType(loadHomeUser,
+            loadClientUser,
+            loadProductUser
+),
+```
+
+
 
 ### Prefer using Event Storming
 
 [Event Storming](https://dev.to/alfredoperez/my-notes-from-ngrx-workshop-from-ngconf-2020-part-2-actions-1ilh) helps to think in terms of events and not in terms of things that you want to happens as a response when an event happens. This also helps the team to get better at using ngrx, because this is done as a group exercise. This can help to have one developer come up with the  UI and selectors while  other builds the effect and reducers.
 
-![](.gitbook/assets/image%20%289%29.png)
+```text
+[User on the Books Page] Create a Book
+- BookRequiredProps
+
+[User on the Books Page] Update a Book
+-	BookRequiredProps
+-	ID of the book being edited
+
+[User on the Books Page] Delete a Book
+-	ID of the book being deleted
+
+[User on the Books Page] Cancel Editing a Book
+```
 
 ### 
 
