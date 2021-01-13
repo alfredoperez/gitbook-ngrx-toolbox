@@ -1,5 +1,7 @@
 # Best Practices / Guidelines
 
+## Introduction
+
 ### Use the SHARI Principle to define what goes into the store
 
 The NgRx core team has come up with a principle called [**SHARI**](https://ngrx.io/guide/store/why#when-should-i-use-ngrx-store-for-state-management), that can be used as a rule of thumb on data that needs to be added to the store.
